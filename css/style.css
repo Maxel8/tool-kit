@@ -200,3 +200,13 @@ color: rgb(255, 255, 255);
 padding-left: 20px;
 margin: 10px 0;
 }
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox input {
+    width: auto; /* verhindert, dass es 100% breit wird */
+}
