@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ff0000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <title>Tool-Kit</title>
+    <link rel="icon" href="../icon.png" type="image/png">
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+    <header class="header">
+<a href="../index.html" class="header-content">
+<img src="../icon.png" alt="Logo" class="logo">
+<span class="title">Tool-Kit</span>
+</a>
+</header>
+
+
+<main class="page">
+
+
+<section class="card">
+<h1>Stromrechner 2.0</h1>
+
+<div class="form">
+            <label for="production">Produzierte Strommenge in kWh</label>
+            <input id="production" type="number">
+
+            <label for="consumption">Eingespeiste Strommenge in kWh</label>
+            <input id="consumption" type="number">
+
+            <label for="cost">Preis pro kWh in Cent</label>
+            <input id="cost" value="38.33" type="number">
+
+            <label for="compensation">Einspeisevergütung pro kWh in Cent</label>
+            <input id="compensation" value="0" type="number">
+
+            <br>
+
+            <div class="checkbox">
+            <input id="revenue" type="checkbox">
+            <label for="revenue">Einspeisevergütung</label>
+            </div>
+                
+
+
+
+            <button onclick="berechnen()">Berechnen</button>
+
+            <br>
+
+            <p>Ergebnis:</p>
+            <br>
+            <p>Ersparnis durch Eigennutzung: <span id="production_cost">xx.xx</span>€</p>
+            <p>Ersparnis durch Einspeisung: <span id="consumption_cost">xx.xx</span>€</p>
+            <br>
+            <p>➡️ Gesamtes Ersparnis: <span id="total">xx.xx</span>€</p>
+
+
+</section>
+
+
+</main>
+
+<footer class="footer">
+<p>© 2026 Tool-Kit • Entwickelt von Maximilian</p>
+</footer>
+
+
+<script>
+function berechnen() {
+    const production = Number(document.getElementById('production').value);
+    const consumption = Number(document.getElementById('consumption').value);
+    const cost = Number(document.getElementById('cost').value);
+    const compensation = Number(document.getElementById('compensation').value);
+    const revenue = document.getElementById('revenue').checked;
+
+    if (!production || production <= 0) {
+        alert("Bitte geben Sie eine gültige Strommenge ein.");
+        return;
+    }
+
+    if (cost <= 0) {
+        alert("Bitte geben Sie einen gültigen Preis pro kWh ein.");
+        return;
+    }
+    if (cost < 0) {
+        alert("Bitte geben Sie eine gültige Einspeisevergütung ein.");
+        return;
+    }
+    if (compensation < 0) {
+        alert("Bitte geben Sie eine gültige Einspeisevergütung ein.");
+        return;
+    }
+
+    if (revenue === true) {
+        const production_cost = (production * cost) / 100;
+        const consumption_cost = (consumption * compensation) / 100;
+        const total = production_cost + consumption_cost;
+
+        document.getElementById('production_cost').textContent = production_cost.toFixed(2);
+        document.getElementById('consumption_cost').textContent = consumption_cost.toFixed(2);
+        document.getElementById('total').textContent = total.toFixed(2);
+    }
+    else if (revenue === false) {
+        const production_cost = (production * cost) / 100;
+        const consumption_cost = (consumption * cost) / 100;
+        const total = production_cost + consumption_cost;
+
+        document.getElementById('production_cost').textContent = production_cost.toFixed(2);
+        document.getElementById('consumption_cost').textContent = consumption_cost.toFixed(2);
+        document.getElementById('total').textContent = total.toFixed(2);
+    }
+    else {
+        alert("Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
+    }
+}
+</script>
+
+
+
+</body>
+</html>
