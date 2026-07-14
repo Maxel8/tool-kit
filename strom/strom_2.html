@@ -99,7 +99,7 @@ function berechnen() {
     }
 
     if (revenue === true) {
-        const production_cost = (production * cost) / 100;
+        const production_cost = ((production-consumption) * cost) / 100;
         const consumption_cost = (consumption * compensation) / 100;
         const total = production_cost + consumption_cost;
 
@@ -108,7 +108,7 @@ function berechnen() {
         document.getElementById('total').textContent = total.toFixed(2);
     }
     else if (revenue === false) {
-        const production_cost = (production * cost) / 100;
+        const production_cost = ((production-consumption) * cost) / 100;
         const consumption_cost = (consumption * cost) / 100;
         const total = production_cost + consumption_cost;
 
