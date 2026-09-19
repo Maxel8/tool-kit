@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ff0000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="../icon.png" type="image/png" />
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <title>Tool-Kit</title>
+  </head>
+
+  <body>
+    <header class="header">
+      <a href="../index.html" class="header-content">
+        <img src="../icon.png" alt="Logo" class="logo" />
+        <span class="title">Tool-Kit</span>
+      </a>
+    </header>
+
+    <main class="page">
+      <section class="card">
+        <h1>Speicherfüllung</h1>
+
+        <div class="form">
+          <label for="capacity"> Speicherkapazität (in kWh) </label>
+
+          <input id="capacity" value="11000" type="number" />
+
+          <label for="battery"> Aktueller Batteriestand (in %) </label>
+
+          <input id="battery" type="number" />
+
+          <label for="add"> Aktuelle Speicherzufuhr (in kWh) </label>
+
+          <input id="add" type="number" />
+
+          <button onclick="berechnen()">Berechnen</button>
+
+          <br />
+
+          <p>Ergebnis:</p>
+
+          <p>
+            ➡️ Der Speicher ist bei 100% in
+            <span id="hour">XX</span>h und <span id="minutes">XX</span>min
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 Tool-Kit • Entwickelt von Maximilian</p>
+    </footer>
+
+    <script>
+      function berechnen() {
+        const capacity = Number(document.getElementById("capacity").value);
+        const battery = Number(document.getElementById("battery").value);
+        const add = Number(document.getElementById("add").value);
+
+        if (!capacity || capacity <= 0) {
+          alert("Bitte geben Sie eine gültige Speicherkapazität ein.");
+          return;
+        }
+
+        if (battery < 0 || battery > 100) {
+          alert(
+            "Bitte geben Sie einen Batteriestand zwischen 0 und 100 % ein.",
+          );
+          return;
+        }
+
+        if (add <= 0) {
+          alert("Bitte geben Sie eine gültige Speicherzufuhr ein.");
+          return;
+        }
+
+        const missing = ((100 - battery) / 100) * capacity;
+
+        const fulltime = missing / add;
+
+        const hour = Math.floor(fulltime);
+        const minutes = Math.floor((fulltime - hour) * 60);
+
+        document.getElementById("hour").textContent = hour;
+        document.getElementById("minutes").textContent = minutes;
+      }
+    </script>
+  </body>
+</html>
